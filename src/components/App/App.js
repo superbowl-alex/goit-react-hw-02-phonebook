@@ -15,8 +15,18 @@ export default class App extends Component {
     filter: '',
   };
 
+  findContactByName = name => {
+    const { contacts } = this.state;
+    return contacts.find(item => item.name.toLowerCase() === name);
+  };
+
   formSubmitHandler = data => {
     const { name, number } = data;
+    const normalizedName = name.toLowerCase();
+    if (this.findContactByName(normalizedName)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
     this.addContact(name, number);
   };
 
@@ -33,7 +43,6 @@ export default class App extends Component {
 
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
-
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizedFilter)
