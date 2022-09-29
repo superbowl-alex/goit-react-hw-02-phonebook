@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
+import Notification from '../Notification';
 
 export default class App extends Component {
   state = {
@@ -41,6 +42,12 @@ export default class App extends Component {
     }));
   };
 
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
@@ -54,7 +61,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { contacts, filter } = this.state;
     const filteredContacts = this.getVisibleContacts();
     return (
       <div>
@@ -62,7 +69,16 @@ export default class App extends Component {
         <ContactForm onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter filter={filter} onChange={this.changeFilter} />
-        <ContactList contacts={filteredContacts} />
+        <>
+          {contacts.length > 0 ? (
+            <ContactList
+              contacts={filteredContacts}
+              onDeleteContact={this.deleteContact}
+            />
+          ) : (
+            <Notification message="There is no contact in Phonebook" />
+          )}
+        </>
       </div>
     );
   }
