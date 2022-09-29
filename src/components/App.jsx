@@ -43,7 +43,19 @@ export default class App extends Component {
     this.setState({ name: '', number: '' });
   };
 
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   render() {
+    const { name, number, filter } = this.state;
+
+    const filteredContacts = this.getVisibleContacts();
     return (
       <div>
         <h2>Phonebook</h2>
@@ -53,7 +65,7 @@ export default class App extends Component {
             <input
               type="text"
               name="name"
-              value={this.state.name}
+              value={name}
               onChange={this.handleChange}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -65,7 +77,7 @@ export default class App extends Component {
             <input
               type="tel"
               name="number"
-              value={this.state.number}
+              value={number}
               onChange={this.handleChange}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -75,10 +87,19 @@ export default class App extends Component {
           <button type="submit">Add contact</button>
         </form>
         <h2>Contacts</h2>
+        <label>
+          Find contacts by name
+          <input
+            type="text"
+            name="filter"
+            value={filter}
+            onChange={this.handleChange}
+          ></input>
+        </label>
         <ul>
-          {this.state.contacts.map(contact => (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
+          {filteredContacts.map(({ id, name, number }) => (
+            <li key={id}>
+              {name}: {number}
             </li>
           ))}
         </ul>
