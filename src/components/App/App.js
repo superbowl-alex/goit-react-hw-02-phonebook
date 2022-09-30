@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GlobalStyles from 'GlobalStyles';
 import { nanoid } from 'nanoid';
 import ContactForm from '../ContactForm';
 import Filter from '../Filter';
@@ -65,6 +66,7 @@ export default class App extends Component {
     const filteredContacts = this.getVisibleContacts();
     return (
       <div>
+        <GlobalStyles />
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
