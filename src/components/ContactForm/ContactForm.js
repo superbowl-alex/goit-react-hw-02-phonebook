@@ -1,5 +1,13 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
+import {
+  FormAddContacts,
+  Label,
+  Input,
+  Thumb,
+  ErrorElement,
+  ButtonForm,
+} from './ContactForm.styled';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 
@@ -8,14 +16,14 @@ let schema = yup.object().shape({
     .string()
     .matches(
       /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
-      'Name is not valid'
+      'Name may contain only letters, apostrophe, dash and spaces without spaces at the beginning and end of the name'
     )
     .required('This field is required'),
   number: yup
     .string()
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-      'Phone number is not valid'
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
     )
     .required('This field is required'),
 });
@@ -25,7 +33,7 @@ const FormError = ({ name }) => {
     <ErrorMessage
       name={name}
       render={message => {
-        return <div>{message}</div>;
+        return <ErrorElement>{message}</ErrorElement>;
       }}
     />
   );
@@ -43,27 +51,23 @@ const ContactForm = ({ onSubmit }) => {
       validationSchema={schema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <label>
+      <FormAddContacts>
+        <Label>
           Name
-          <Field
-            type="text"
-            name="name"
-            title="Name may contain only letters, apostrophe, dash and spaces without spaces at the beginning and end of the name. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          />
-          <FormError name="name" />
-        </label>
-        <label>
+          <Thumb>
+            <Input type="text" name="name" autoComplete="off" />
+            <FormError name="name" />
+          </Thumb>
+        </Label>
+        <Label>
           Number
-          <Field
-            type="tel"
-            name="number"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          />
-          <FormError name="number" />
-        </label>
-        <button type="submit">Add contact</button>
-      </Form>
+          <Thumb>
+            <Input type="tel" name="number" autoComplete="off" />
+            <FormError name="number" />
+          </Thumb>
+        </Label>
+        <ButtonForm type="submit">Add contact</ButtonForm>
+      </FormAddContacts>
     </Formik>
   );
 };

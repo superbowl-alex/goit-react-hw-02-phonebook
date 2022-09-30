@@ -5,6 +5,13 @@ import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactList';
 import Notification from '../Notification';
+import {
+  Container,
+  WrapForms,
+  WrapList,
+  FormTitle,
+  ListTitle,
+} from './App.styled';
 
 export default class App extends Component {
   state = {
@@ -65,13 +72,15 @@ export default class App extends Component {
     const { contacts, filter } = this.state;
     const filteredContacts = this.getVisibleContacts();
     return (
-      <div>
+      <Container>
         <GlobalStyles />
-        <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler} />
-        <h2>Contacts</h2>
-        <Filter filter={filter} onChange={this.changeFilter} />
-        <>
+        <WrapForms>
+          <FormTitle>Phonebook</FormTitle>
+          <ContactForm onSubmit={this.formSubmitHandler} />
+          <Filter filter={filter} onChange={this.changeFilter} />
+        </WrapForms>
+        <WrapList>
+          <ListTitle>Contacts</ListTitle>
           {contacts.length > 0 ? (
             <ContactList
               contacts={filteredContacts}
@@ -80,8 +89,8 @@ export default class App extends Component {
           ) : (
             <Notification message="There is no contact in Phonebook" />
           )}
-        </>
-      </div>
+        </WrapList>
+      </Container>
     );
   }
 }

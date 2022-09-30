@@ -12,11 +12,16 @@ export const theme = {
     lightBlue: 'rgb(224, 255, 255)',
     darkBlue: 'rgb(84, 243, 243)',
     deepBlue: 'rgb(16, 16, 144)',
+    chestnut: 'rgb(205, 92, 92)',
+    lavender: 'rgb(255, 240, 245)',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
   borders: {
     none: 'none',
     normal: '1px solid',
+    medium: '2px solid',
+    wide: '3px solid',
+    huge: '4px solid',
   },
   radii: {
     none: 'none',
@@ -36,7 +41,8 @@ export const theme = {
     m: '20px',
     l: '24px',
     xl: '32px',
-    xxl: '64px',
+    xxl: '48px',
+    xxxl: '64px',
   },
   fontWeights: {
     normal: 400,
@@ -51,8 +57,9 @@ export const theme = {
     heading: 1.125,
   },
   shadows: {
-    standart: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    deep: 'rgb(0 0 0 / 16%) 4px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px',
+    small: '0 2px 4px rgba(0, 0, 0, 0.2)',
+    middle: 'rgb(0 0 0 / 16%) 4px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px',
+    large: 'rgba(0, 0, 0, 0.35) 0px 5px 15px 0px',
   },
   sizes: {},
 };
