@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Notiflix from 'notiflix';
 import GlobalStyles from 'GlobalStyles';
 import { nanoid } from 'nanoid';
 import ContactForm from '../ContactForm';
@@ -12,6 +13,19 @@ import {
   FormTitle,
   ListTitle,
 } from './App.styled';
+
+Notiflix.Notify.init({
+  width: '500px',
+  position: 'center-top',
+  closeButton: true,
+  fontFamily: 'Comic Sans MS',
+  fontSize: '24px',
+  warning: {
+    background: 'rgb(255, 240, 245)',
+    textColor: 'rgb(40, 70, 219)',
+    notiflixIconColor: 'rgb(205, 92, 92)',
+  },
+});
 
 export default class App extends Component {
   state = {
@@ -33,7 +47,7 @@ export default class App extends Component {
     const { name, number } = data;
     const normalizedName = name.toLowerCase();
     if (this.findContactByName(normalizedName)) {
-      alert(`${name} is already in contacts`);
+      Notiflix.Notify.warning(`${name} is already in contacts`);
       return;
     }
     this.addContact(name, number);
